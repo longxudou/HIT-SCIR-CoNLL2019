@@ -13,6 +13,8 @@ CoNLL2019 Shared Task Official Website: <http://mrp.nlpl.eu/>
 - Penman
 - AllenNLP 0.9.0
 
+For JAMR installation, please refer to https://github.com/DreamerDeo/HIT-SCIR-CoNLL2019/issues/2. 
+
 ## Dataset
 
 Total training data is available at [mrp-data].
