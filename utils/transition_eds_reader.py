@@ -326,12 +326,12 @@ class EDSDatasetReaderConll2019(DatasetReader):
                 gold_mrps = ret["gold_mrps"]
 
                 concept_node = ret["concept_node"]
-                gold_actions = get_oracle_actions(tokens, arc_indices, arc_tags, root_id, concept_node, node_info_dict)
+                gold_actions = get_oracle_actions(tokens, arc_indices, arc_tags, root_id, concept_node, node_info_dict) if arc_indices else None
 
-                if len(gold_actions) / len(tokens) > 20:
-                    print(len(gold_actions) / len(tokens))
+                # if len(gold_actions) / len(tokens) > 20:
+                #     print(len(gold_actions) / len(tokens))
 
-                if gold_actions[-1] == '-E-':
+                if gold_actions and gold_actions[-1] == '-E-':
                     print('-E-', ret["graph_id"])
                     continue
 

@@ -311,7 +311,9 @@ class TransitionParser(Model):
 
                     if log_probs is not None:
                         # append the action-specific loss
-                        losses[sent_idx].append(log_probs[valid_action_tbl[action]])
+                        loss = log_probs[valid_action_tbl[action]]
+                        if not torch.isnan(loss):
+                            losses[sent_idx].append(loss)
 
                     # generate concept node, recursive way
                     if action in action_id["NODE"] + action_id["REMOTE-NODE"]:

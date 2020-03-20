@@ -403,30 +403,31 @@ class UCCADatasetReaderConll2019(DatasetReader):
         with open(file_path, 'r', encoding='utf8') as ucca_file:
             logger.info("Reading UCCA instances from conllu dataset at: %s", file_path)
             for ret in lazy_parse(ucca_file.read()):
-                tokens = ret["tokens"]
-                arc_indices = ret["arc_indices"]
-                arc_tags = ret["arc_tags"]
-                root_id = ret["root_id"]
-                lemmas = ret["lemmas"]
-                pos_tags = ret["pos_tags"]
-                meta_info = ret["meta_info"]
-                tokens_range = ret["tokens_range"]
-                gold_mrps = ret["gold_mrps"]
+                tokens = ret["tokens"] if "tokens" in ret else None
+                arc_indices = ret["arc_indices"] if "arc_indices" in ret else None
+                arc_tags = ret["arc_tags"] if "arc_tags" in ret else None
+                root_id = ret["root_id"] if "root_id" in ret else None
+                lemmas = ret["lemmas"] if "lemmas" in ret else None
+                pos_tags = ret["pos_tags"] if "pos_tags" in ret else None
+                meta_info = ret["meta_info"] if "meta_info" in ret else None
+                tokens_range = ret["tokens_range"] if "tokens_range" in ret else None
+                gold_mrps = ret["gold_mrps"] if "gold_mrps" in ret else None
 
-                concept_node_expect_root = ret["concept_node_expect_root"]
+                concept_node_expect_root = ret["concept_node_expect_root"] if "concept_node_expect_root" in ret else None
 
+                # In CoNLL2019, gold actions is not avaiable in test set.
                 gold_actions = get_oracle_actions(tokens, arc_indices, arc_tags, root_id, \
                                                   concept_node_expect_root,
-                                                  len(ret["layer_0_node"]) + len(ret["layer_1_node"]))
+                                                  len(ret["layer_0_node"]) + len(ret["layer_1_node"])) if "layer_1_node" in ret else None
 
-                if len(gold_actions) / len(tokens) > 20:
+                if gold_actions and tokens and len(gold_actions) / len(tokens) > 20:
                     print(len(gold_actions) / len(tokens))
 
                 arc_descendants = expand_arc_with_descendants(arc_indices,
                                                               len(ret["layer_0_node"]) + len(ret["layer_1_node"]),
-                                                              len(tokens))
+                                                              len(tokens)) if "layer_1_node" in ret else None
 
-                if gold_actions[-2] == '-E-':
+                if gold_actions and gold_actions[-2] == '-E-':
                     print('-E-')
                     continue
                 yield self.text_to_instance(tokens, lemmas, pos_tags, arc_indices, arc_tags, gold_actions,

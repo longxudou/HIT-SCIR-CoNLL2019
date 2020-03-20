@@ -74,7 +74,7 @@ class AMRDatasetReader(DatasetReader):
         # if `file_path` is a URL, redirect to the cache
         file_path = cached_path(file_path)
 
-        logger.info("Reading semantic dependency parsing data from: %s", file_path)
+        logger.info("Reading AMR data from: %s", file_path)
 
         with open(file_path, encoding='utf8') as sdp_file:
             for tokens, actions, id, amr, input, mrp, companion in lazy_parse(sdp_file.read()):

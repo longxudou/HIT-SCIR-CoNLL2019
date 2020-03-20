@@ -477,6 +477,7 @@ class TransitionParser(Model):
         }
 
         # prediction-mode
+        # compute the mrp accuracy when gold actions exists
         if gold_actions is not None:
             gold_mrps = [x["gold_mrps"] for x in metadata]
             predicted_mrps = []

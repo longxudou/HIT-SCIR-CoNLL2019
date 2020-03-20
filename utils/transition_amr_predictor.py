@@ -8,7 +8,7 @@ from overrides import overrides
 from utils.extract_mrp_dict import extract_mrp_dict
 
 
-@Predictor.register('transition_amr_predictor')
+@Predictor.register('transition_predictor_amr')
 class AMRParserPredictor(Predictor):
 
     def predict(self, sentence: str) -> JsonDict:

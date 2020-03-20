@@ -287,9 +287,10 @@ class SDPDatasetReaderConll2019(DatasetReader):
                 gold_mrps = ret["gold_mrps"]
                 node_label = ret["node_label"]
 
-                gold_actions = get_oracle_actions(tokens, arc_indices, arc_tags)
+                #In CoNLL2019, gold actions is not avaiable in test set.
+                gold_actions = get_oracle_actions(tokens, arc_indices, arc_tags) if arc_indices else None
 
-                if gold_actions[-1] == '-E-':
+                if gold_actions and gold_actions[-1] == '-E-':
                     print('-E-')
                     continue
 

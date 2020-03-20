@@ -68,7 +68,7 @@ CUDA_VISIBLE_DEVICES=0 \
 allennlp predict \
 --cuda-device 0 \
 --output-file amr-output.mrp \
---predictor transition_amr_predictor \
+--predictor transition_predictor_amr \
 --include-package utils \
 --include-package modules \
 --use-dataset-reader \
