@@ -227,7 +227,7 @@ def get_carg_value(label, token):
 
         for value_sp in value.lower().split():
             if value in month_dict:
-                value = month_dict[month_dict]
+                value = month_dict[value_sp]
 
     elif label == 'named':
         # W.D.) -> W.D.
