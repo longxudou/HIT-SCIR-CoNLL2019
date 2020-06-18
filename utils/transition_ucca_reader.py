@@ -637,8 +637,7 @@ def get_oracle_actions(tokens, arc_indices, arc_tags, root_id, concept_node_expe
             return
 
         # SWAP
-        elif len(stack) > 2 and generated_order[s0] > generated_order[s1] and (
-                has_unfound_child(stack[-3]) or lack_head(stack[-3])):
+        elif len(stack) > 2 and generated_order[s0] > generated_order[s1]:
             buffer.append(stack.pop(-2))
             actions.append("SWAP")
             return
