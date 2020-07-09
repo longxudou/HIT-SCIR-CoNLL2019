@@ -220,13 +220,21 @@ def get_carg_value(label, token):
                       "september": "Sep",
                       "october": "Oct",
                       "november": "Nov",
-                      "december": "Dec"}
+                      "december": "Dec",
+                      "sept": "Sep"}
 
         if value in list(month_dict.values()):
             return value
 
-        for value_sp in value.lower().split():
-            if value in month_dict:
+        #DEC -> Dec
+        for value_sp in month_dict.values():
+            if value_sp.lower()==value.lower():
+                return value_sp
+
+        #pattern 1:"September-October->Oct", we choose the back one. So our accuracy was 50%.
+        #pattern 2:"mid-August->Aug"
+        for value_sp in value.lower().split('-'):
+            if value_sp in month_dict:
                 value = month_dict[value_sp]
 
     elif label == 'named':
